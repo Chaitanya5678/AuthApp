@@ -1,0 +1,21 @@
+.footer-container
+{
+    background-color: rgb(95, 96, 98);
+    color: white;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+}
+
+.footer-para{
+    margin-left: 1%;
+}
+
+
+.footer-op1 a, .footer-op2 a
+{ 
+    color: white;
+    text-decoration: none;
+}

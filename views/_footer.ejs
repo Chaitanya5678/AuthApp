@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="/css/footer.css">
+
+<div class="footer-container">
+    
+    <div class="footer-para">
+        <p> &copy; Chaitanya. All Rights Reserved</p>
+    </div>
+
+    <div class="footer-op1">
+        <a href="/"><p>&nbsp;Home</p></a>
+    </div>
+
+    <div class="footer-op2">        
+        <% if(locals.user){  %> 
+
+            <a href="/users/profile/<%= user.id %>"><p>&nbsp;Profile</p></a>
+
+        <% } %> 
+    </div>
+</div>

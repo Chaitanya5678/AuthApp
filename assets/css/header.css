@@ -1,0 +1,38 @@
+
+.header-container{
+    background-color: rgb(3, 125, 238);
+    color: white;
+    display: flex;
+}
+
+.header-logo
+{
+    flex: 4;
+}
+
+
+.header-options
+{
+    flex: 1;
+}
+
+.header-options ul{
+    display: flex;
+}
+
+.header-options li{
+    flex: 1;
+    list-style: none;
+}
+
+.header-options a{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.header-logo a{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
