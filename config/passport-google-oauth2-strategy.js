@@ -12,7 +12,7 @@ passport.use(new googleStrategy({
         // These are dummy credentials. Use your own credentials
 
         clientID: '913250173905-tpa1jn8uo1sbpq6mvkblt9g93tqfs63v.apps.googleusercontent.com',
-        clientSecret: 'Sg_Ru3cRwYzAfbWMtVD30Uh2',
+        clientSecret: 'T8SZ0D-WLBmA-CRRO0qtU8QJ',
         callbackURL: 'http://localhost:8080/users/auth/google/callback'
     },
     function(accessToken, refreshToken, profile, done){
@@ -34,7 +34,9 @@ passport.use(new googleStrategy({
                 User.create({
                     name: profile.displayName,
                     email: profile.emails[0].value,
-                    password: crypto.randomBytes(20).toString('hex')
+                    password: crypto.randomBytes(20).toString('hex'),
+                    salt: 'google',
+                    authMechanism: 'google'
                 },
                 
                 function(err,user){

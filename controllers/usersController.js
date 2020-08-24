@@ -1,6 +1,8 @@
 
 const User = require('../models/user');
 
+const crypto = require('crypto');
+
 module.exports.profile = function(req,res){
 
     User.findById(req.params.id, function(err,user){
@@ -37,6 +39,45 @@ module.exports.update = function(req,res)
     }
 }
 
+module.exports.updatePassword = async function(req,res)
+{
+    if(req.user.id == req.params.id)
+    {
+        try
+        {
+            let user = await User.findById(req.params.id);
+
+            if(user.password != crypto.pbkdf2Sync(req.body.current_password, user.salt, 1000, 64, `sha512`).toString(`hex`))
+            {
+                req.flash('error', 'Invalid Password');
+                return res.redirect('back');
+            }
+
+            if(req.body.password == req.body.confirm_password)
+            {
+                user.password = crypto.pbkdf2Sync(req.body.password, user.salt, 1000, 64, `sha512`).toString(`hex`);
+                user.save();
+                req.flash('success', 'Password Reset Successful');
+            }
+            else
+            {
+                req.flash('error', 'Passwords must match');
+            }
+
+            return res.redirect('back');
+        }
+        catch(err)
+        {
+            req.flash('error', err);
+            return res.redirect('back');
+        }
+    }
+    else{
+        return res.status(401).send('Unauthorised');
+    }
+}
+
+
 module.exports.signUp = function(req,res){
 
     if(req.isAuthenticated())
@@ -65,6 +106,7 @@ module.exports.create = function(req, res)
 {
     if(req.body.password != req.body.confirm_password)
     {
+        req.flash('error', 'Passwords must match');
         return res.redirect('back');
     }
 
@@ -74,6 +116,10 @@ module.exports.create = function(req, res)
 
         if(!user)
         {
+            req.body.salt = crypto.randomBytes(16).toString('hex');
+            req.body.password = crypto.pbkdf2Sync(req.body.password, req.body.salt, 1000, 64, `sha512`).toString(`hex`);
+            req.body.authMechanism = 'local';
+
             User.create(req.body, function(err,user){
                 if(err){ console.log('Error in creating account while signing up');
                 return;}

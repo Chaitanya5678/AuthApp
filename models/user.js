@@ -13,6 +13,14 @@ const userSchema = new mongoose.Schema({
     name:{
         type: String,
         required: true
+    },
+    salt:{
+        type: String,
+        required: true
+    },
+    authMechanism:{
+        type: String,
+        required: true
     }
 }, {
     timestamps: true

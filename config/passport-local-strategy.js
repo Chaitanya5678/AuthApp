@@ -1,6 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
+const crypto = require('crypto');
 
 passport.use(new LocalStrategy({
 
@@ -20,7 +21,7 @@ passport.use(new LocalStrategy({
                 return done(err);
             }
 
-            if(!user || user.password != password)
+            if(!user || user.password != crypto.pbkdf2Sync(password, user.salt, 1000, 64, `sha512`).toString(`hex`))
             {
                 req.flash('error', 'Invalid Username/Password');
                 return done(null,false);

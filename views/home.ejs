@@ -6,6 +6,23 @@
     <% if(locals.user){  %> 
 
         <p>Hi <%= user.name %> </p>
+
+        <% if(user.authMechanism == 'local'){ %> 
+
+            <h4>Reset Your Password</h4>
+
+            <form action="/users/update-password/<%= profile_user.id %> " method="POST">
+                <input type="password" name="current_password" placeholder="Current Password" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                <input type="submit" value="Reset Password">
+            </form>
+        <% } %> 
+
+        <p>Note : Password Reset only available for locally authenticated users</p>
+
+        <a href="/users/sign-out">Sign Out</a>
+
     <% } %> 
 
 </div>  
