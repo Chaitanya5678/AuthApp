@@ -11,8 +11,8 @@ passport.use(new googleStrategy({
 
         // These are dummy credentials. Use your own credentials
 
-        clientID: '913250173905-tpa1jn8uo1sbpq6mvkblt9g93tqfs63v.apps.googleusercontent.com',
-        clientSecret: 'T8SZ0D-WLBmA-CRRO0qtU8QJ',
+        clientID: 'fddfafase-fdfdfddf.apps.googleusercontent.com',
+        clientSecret: 'dfasdfasdfg',
         callbackURL: 'http://localhost:8080/users/auth/google/callback'
     },
     function(accessToken, refreshToken, profile, done){
